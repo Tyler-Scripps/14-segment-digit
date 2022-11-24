@@ -4,15 +4,14 @@ fourteen_segment_digit::fourteen_segment_digit() {
 
 }
 
-bool fourteen_segment_digit::begin(int newPin, CRGB *newPtr, uint8_t longCount, uint8_t shortCount, uint8_t newGap) {
-    this->pin = newPin;
+int fourteen_segment_digit::begin(CRGB newPtr[], uint8_t longCount, uint8_t shortCount, uint8_t newGap) {
     this->stripPtr = newPtr;
     this->numLongSegment = longCount;
     this->numShortSegment = shortCount;
     this->numMiddleGap = newGap;
     this->totalLEDs = 4*longCount + 9*shortCount;
 
-    FastLED.addLeds<NEOPIXEL, this->pin>(this->stripPtr, this->totalLEDs);  // GRB ordering is assumed
+    return this->totalLEDs;
 }
 
 void fourteen_segment_digit::setChar(char newChar, uint8_t r, uint8_t g, uint8_t b) {
