@@ -13,7 +13,7 @@ private:
     CRGB *stripPtr;
 public:
     fourteen_segment_digit();
-    bool begin(int pin);
+    bool begin(int newPin, CRGB *newPtr, uint8_t longCount, uint8_t shortCount, uint8_t newGap);
     void setChar(char newChar, uint8_t r, uint8_t g, uint8_t b);
     void erase();
     void fill(uint8_t r, uint8_t g, uint8_t b);
