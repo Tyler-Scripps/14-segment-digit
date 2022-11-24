@@ -10,7 +10,9 @@ bool fourteen_segment_digit::begin(int newPin, CRGB *newPtr, uint8_t longCount, 
     this->numLongSegment = longCount;
     this->numShortSegment = shortCount;
     this->numMiddleGap = newGap;
-    this->totalLEDs = 4*longCount + 9*shortCount
+    this->totalLEDs = 4*longCount + 9*shortCount;
+
+    FastLED.addLeds<NEOPIXEL, this->pin>(this->stripPtr, this->totalLEDs);  // GRB ordering is assumed
 }
 
 void fourteen_segment_digit::setChar(char newChar, uint8_t r, uint8_t g, uint8_t b) {
