@@ -1,5 +1,5 @@
-#ifndef fourteen_SEGEMENT_DIGIT
-#define fourteen_SEGEMENT_DIGIT
+#ifndef FOURTEEN_SEGMENT_DIGIT
+#define FOURTEEN_SEGMENT_DIGIT
 #include <FastLED.h>
 
 class fourteen_segment_digit
@@ -21,4 +21,4 @@ public:
 
 
 
-#endif  //fourteen_SEGEMENT_DIGIT
+#endif  //FOURTEEN_SEGMENT_DIGIT
