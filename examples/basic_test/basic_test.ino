@@ -30,7 +30,7 @@ void loop() {
   digit1.fill(50,50,50);
   FastLED.show();
   delay(2000);
-  digit1.erase()
+  digit1.erase();
 
   for (byte i = '0'; i <= '9'; i++)
   {
