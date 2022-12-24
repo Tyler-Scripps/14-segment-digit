@@ -230,7 +230,61 @@ int fourteen_segment_digit::begin(CRGB newPtr[], uint8_t longCount, uint8_t shor
 		/* code */
 	} else if (!leftRight && dataTop)
 	{
-		/* code */
+		//a
+		this->segments[0][0] = 0*longCount + 0*shortCount;
+		this->segments[0][1] = 0*longCount + 1*shortCount - 1;
+
+		//f
+		this->segments[5][0] = 0*longCount + 1*shortCount;
+		this->segments[5][1] = 0*longCount + 2*shortCount - 1;
+
+		//e
+		this->segments[4][0] = 0*longCount + 2*shortCount;
+		this->segments[4][1] = 0*longCount + 3*shortCount - 1;
+
+		//d
+		this->segments[3][0] = 0*longCount + 3*shortCount;
+		this->segments[3][1] = 0*longCount + 4*shortCount - 1;
+
+		//c
+		this->segments[2][0] = 0*longCount + 4*shortCount;
+		this->segments[2][1] = 0*longCount + 5*shortCount - 1;
+
+		//b
+		this->segments[1][0] = 0*longCount + 5*shortCount;
+		this->segments[1][1] = 0*longCount + 6*shortCount - 1;
+
+		//k
+		this->segments[10][0] = 0*longCount + 6*shortCount;
+		this->segments[10][1] = 1*longCount + 6*shortCount - 1;
+
+		//l
+		this->segments[11][0] = 1*longCount + 6*shortCount;
+		this->segments[11][1] = 2*longCount + 6*shortCount - 1;
+
+		//m
+		this->segments[12][0] = 2*longCount + 6*shortCount;
+		this->segments[12][1] = 2*longCount + 7*shortCount - 1;
+
+		//n
+		this->segments[13][0] = 2*longCount + 7*shortCount;
+		this->segments[13][1] = 3*longCount + 7*shortCount - 1;
+
+		//g
+		this->segments[6][0] = 3*longCount + 7*shortCount;
+		this->segments[6][1] = 3*longCount + 7*shortCount + (shortCount - newGap)/2;
+
+		//h
+		this->segments[7][0] = 3*longCount + 7*shortCount + (shortCount - newGap)/2 + newGap;
+		this->segments[7][1] = 3*longCount + 8*shortCount - 1;
+
+		//j
+		this->segments[9][0] = 3*longCount + 8*shortCount;
+		this->segments[9][1] = 3*longCount + 9*shortCount - 1;
+
+		//i
+		this->segments[8][0] = 3*longCount + 9*shortCount;
+		this->segments[8][1] = 4*longCount + 9*shortCount - 1;
 	} else if (!leftRight && !dataTop)
 	{
 		/* code */
