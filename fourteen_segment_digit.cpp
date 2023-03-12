@@ -1,6 +1,6 @@
 #include "fourteen_segment_digit.h"
 
-// the leds are wired up as so
+// the leds are wired up as so in the older design
 //
 //      1
 //  7_______14
@@ -132,247 +132,368 @@ fourteen_segment_digit::fourteen_segment_digit() {
 
 }
 
-int fourteen_segment_digit::begin(CRGB newPtr[], uint8_t longCount, uint8_t shortCount, uint8_t newGap, bool leftRight, bool dataTop) {
+int fourteen_segment_digit::begin(CRGB newPtr[], uint8_t longCount, uint8_t shortCount, uint8_t newGap, bool leftRight, bool dataTop, int layout) {
     this->stripPtr = newPtr;
     this->numLongSegment = longCount;
     this->numShortSegment = shortCount;
     this->numMiddleGap = newGap;
     this->totalLEDs = 4*longCount + 9*shortCount;
 
-	if (leftRight && dataTop)	//hanging minutes
-	{
-		//a
-		this->segments[0][0] = 0*longCount + 0*shortCount;
-		this->segments[0][1] = 0*longCount + 1*shortCount - 1;
+	switch (layout) {
+		case 1:
+			if (dataTop)	//hanging
+			{
+				//a
+				this->segments[0][0] = 0*longCount + 0*shortCount;
+				this->segments[0][1] = 0*longCount + 1*shortCount - 1;
 
-		//b
-		this->segments[1][0] = 0*longCount + 1*shortCount;
-		this->segments[1][1] = 0*longCount + 2*shortCount - 1;
+				//b
+				this->segments[1][0] = 0*longCount + 1*shortCount;
+				this->segments[1][1] = 0*longCount + 2*shortCount - 1;
 
-		//c
-		this->segments[2][0] = 0*longCount + 2*shortCount;
-		this->segments[2][1] = 0*longCount + 3*shortCount - 1;
+				//c
+				this->segments[2][0] = 0*longCount + 2*shortCount;
+				this->segments[2][1] = 0*longCount + 3*shortCount - 1;
 
-		//d
-		this->segments[3][0] = 0*longCount + 3*shortCount;
-		this->segments[3][1] = 0*longCount + 4*shortCount - 1;
+				//d
+				this->segments[3][0] = 0*longCount + 3*shortCount;
+				this->segments[3][1] = 0*longCount + 4*shortCount - 1;
 
-		//e
-		this->segments[4][0] = 0*longCount + 4*shortCount;
-		this->segments[4][1] = 0*longCount + 5*shortCount - 1;
+				//e
+				this->segments[4][0] = 0*longCount + 4*shortCount;
+				this->segments[4][1] = 0*longCount + 5*shortCount - 1;
 
-		//f
-		this->segments[5][0] = 0*longCount + 5*shortCount;
-		this->segments[5][1] = 0*longCount + 6*shortCount - 1;
+				//f
+				this->segments[5][0] = 0*longCount + 5*shortCount;
+				this->segments[5][1] = 0*longCount + 6*shortCount - 1;
 
-		//i
-		this->segments[8][0] = 0*longCount + 6*shortCount;
-		this->segments[8][1] = 1*longCount + 6*shortCount - 1;
+				//g
+				this->segments[6][0] = 0*longCount + 6*shortCount;
+				this->segments[6][1] = 0*longCount + 6*shortCount + (shortCount - newGap) /2;
 
-		//n
-		this->segments[13][0] = 1*longCount + 6*shortCount;
-		this->segments[13][1] = 2*longCount + 6*shortCount - 1;
+				//h
+				this->segments[7][0] = 0*longCount + 6*shortCount + (shortCount - newGap) /2 + newGap;
+				this->segments[7][1] = 0*longCount + 7*shortCount - 1;
 
-		//m
-		this->segments[12][0] = 2*longCount + 6*shortCount;
-		this->segments[12][1] = 2*longCount + 7*shortCount - 1;
+				//i
+				this->segments[10][0] = 0*longCount + 7*shortCount;
+				this->segments[10][1] = 1*longCount + 7*shortCount - 1;
 
-		//l
-		this->segments[11][0] = 2*longCount + 7*shortCount;
-		this->segments[11][1] = 3*longCount + 7*shortCount - 1;
+				//j
+				this->segments[8][0] = 1*longCount + 7*shortCount;
+				this->segments[8][1] = 1*longCount + 8*shortCount - 1;
 
-		//h
-		this->segments[7][0] = 3*longCount + 7*shortCount;
-		this->segments[7][1] = 3*longCount + 7*shortCount + (shortCount - newGap)/2;
+				//k
+				this->segments[11][0] = 1*longCount + 8*shortCount;
+				this->segments[11][1] = 2*longCount + 8*shortCount - 1;
 
-		//g
-		this->segments[6][0] = 3*longCount + 7*shortCount + (shortCount - newGap)/2 + newGap;
-		this->segments[6][1] = 3*longCount + 8*shortCount - 1;
+				//l
+				this->segments[12][0] = 2*longCount + 8*shortCount;
+				this->segments[12][1] = 3*longCount + 8*shortCount - 1;
 
-		//j
-		this->segments[9][0] = 3*longCount + 8*shortCount;
-		this->segments[9][1] = 3*longCount + 9*shortCount - 1;
+				//m
+				this->segments[9][0] = 3*longCount + 8*shortCount;
+				this->segments[9][1] = 3*longCount + 9*shortCount - 1;
 
-		//k
-		this->segments[10][0] = 3*longCount + 9*shortCount;
-		this->segments[10][1] = 4*longCount + 9*shortCount - 1;
-	} else if (leftRight && !dataTop)	//sitting minutes
-	{
-		//d
-		this->segments[3][0] = 0*longCount + 0*shortCount;
-		this->segments[3][1] = 0*longCount + 1*shortCount - 1;
+				//n
+				this->segments[13][0] = 3*longCount + 9*shortCount;
+				this->segments[13][1] = 4*longCount + 9*shortCount - 1;
+			} else	//sitting
+			{
+				//d
+				this->segments[3][0] = 0*longCount + 3*shortCount;
+				this->segments[3][1] = 0*longCount + 4*shortCount - 1;
 
-		//c
-		this->segments[2][0] = 0*longCount + 1*shortCount;
-		this->segments[2][1] = 0*longCount + 2*shortCount - 1;
+				//c
+				this->segments[2][0] = 0*longCount + 2*shortCount;
+				this->segments[2][1] = 0*longCount + 3*shortCount - 1;
 
-		//b
-		this->segments[1][0] = 0*longCount + 2*shortCount;
-		this->segments[1][1] = 0*longCount + 3*shortCount - 1;
+				//b
+				this->segments[1][0] = 0*longCount + 1*shortCount;
+				this->segments[1][1] = 0*longCount + 2*shortCount - 1;
 
-		//a
-		this->segments[0][0] = 0*longCount + 3*shortCount;
-		this->segments[0][1] = 0*longCount + 4*shortCount - 1;
+				//a
+				this->segments[0][0] = 0*longCount + 0*shortCount;
+				this->segments[0][1] = 0*longCount + 1*shortCount - 1;
 
-		//f
-		this->segments[5][0] = 0*longCount + 4*shortCount;
-		this->segments[5][1] = 0*longCount + 5*shortCount - 1;
+				//f
+				this->segments[5][0] = 0*longCount + 5*shortCount;
+				this->segments[5][1] = 0*longCount + 6*shortCount - 1;
 
-		//e
-		this->segments[4][0] = 0*longCount + 5*shortCount;
-		this->segments[4][1] = 0*longCount + 6*shortCount - 1;
+				//e
+				this->segments[4][0] = 0*longCount + 4*shortCount;
+				this->segments[4][1] = 0*longCount + 5*shortCount - 1;
 
-		//n
-		this->segments[13][0] = 0*longCount + 6*shortCount;
-		this->segments[13][1] = 1*longCount + 6*shortCount - 1;
+				//n
+				this->segments[13][0] = 3*longCount + 9*shortCount;
+				this->segments[13][1] = 4*longCount + 9*shortCount - 1;
 
-		//i
-		this->segments[8][0] = 1*longCount + 6*shortCount;
-		this->segments[8][1] = 2*longCount + 6*shortCount - 1;
+				//i
+				this->segments[8][0] = 0*longCount + 7*shortCount;
+				this->segments[8][1] = 1*longCount + 7*shortCount - 1;
 
-		//j
-		this->segments[9][0] = 2*longCount + 6*shortCount;
-		this->segments[9][1] = 2*longCount + 7*shortCount - 1;
+				//j
+				this->segments[9][0] = 1*longCount + 7*shortCount;
+				this->segments[9][1] = 1*longCount + 8*shortCount - 1;
 
-		//k
-		this->segments[10][0] = 2*longCount + 7*shortCount;
-		this->segments[10][1] = 3*longCount + 7*shortCount - 1;
+				//k
+				this->segments[10][0] = 1*longCount + 8*shortCount;
+				this->segments[10][1] = 2*longCount + 8*shortCount - 1;
 
-		//h
-		this->segments[7][0] = 3*longCount + 7*shortCount;
-		this->segments[7][1] = 3*longCount + 7*shortCount + (shortCount - newGap)/2;
+				//h
+				this->segments[7][0] = 0*longCount + 6*shortCount + (shortCount - newGap) /2 + newGap;
+				this->segments[7][1] = 0*longCount + 7*shortCount - 1;
 
-		//g
-		this->segments[6][0] = 3*longCount + 7*shortCount + (shortCount - newGap)/2 + newGap;
-		this->segments[6][1] = 3*longCount + 8*shortCount - 1;
+				//g
+				this->segments[6][0] = 0*longCount + 6*shortCount;
+				this->segments[6][1] = 0*longCount + 6*shortCount + (shortCount - newGap) /2;
 
-		//m
-		this->segments[12][0] = 3*longCount + 8*shortCount;
-		this->segments[12][1] = 3*longCount + 9*shortCount - 1;
+				//m
+				this->segments[12][0] = 3*longCount + 8*shortCount;
+				this->segments[12][1] = 3*longCount + 9*shortCount - 1;
 
-		//l
-		this->segments[11][0] = 3*longCount + 9*shortCount;
-		this->segments[11][1] = 4*longCount + 9*shortCount - 1;
-	} else if (!leftRight && dataTop)	//hanging hours
-	{
-		//a
-		this->segments[0][0] = 0*longCount + 0*shortCount;
-		this->segments[0][1] = 0*longCount + 1*shortCount - 1;
+				//l
+				this->segments[11][0] = 2*longCount + 8*shortCount;
+				this->segments[11][1] = 3*longCount + 8*shortCount - 1;
+			}
+		break;
+		case 2:
+			if (leftRight && dataTop)	//hanging minutes
+			{
+				//a
+				this->segments[0][0] = 0*longCount + 0*shortCount;
+				this->segments[0][1] = 0*longCount + 1*shortCount - 1;
 
-		//f
-		this->segments[5][0] = 0*longCount + 1*shortCount;
-		this->segments[5][1] = 0*longCount + 2*shortCount - 1;
+				//b
+				this->segments[1][0] = 0*longCount + 1*shortCount;
+				this->segments[1][1] = 0*longCount + 2*shortCount - 1;
 
-		//e
-		this->segments[4][0] = 0*longCount + 2*shortCount;
-		this->segments[4][1] = 0*longCount + 3*shortCount - 1;
+				//c
+				this->segments[2][0] = 0*longCount + 2*shortCount;
+				this->segments[2][1] = 0*longCount + 3*shortCount - 1;
 
-		//d
-		this->segments[3][0] = 0*longCount + 3*shortCount;
-		this->segments[3][1] = 0*longCount + 4*shortCount - 1;
+				//d
+				this->segments[3][0] = 0*longCount + 3*shortCount;
+				this->segments[3][1] = 0*longCount + 4*shortCount - 1;
 
-		//c
-		this->segments[2][0] = 0*longCount + 4*shortCount;
-		this->segments[2][1] = 0*longCount + 5*shortCount - 1;
+				//e
+				this->segments[4][0] = 0*longCount + 4*shortCount;
+				this->segments[4][1] = 0*longCount + 5*shortCount - 1;
 
-		//b
-		this->segments[1][0] = 0*longCount + 5*shortCount;
-		this->segments[1][1] = 0*longCount + 6*shortCount - 1;
+				//f
+				this->segments[5][0] = 0*longCount + 5*shortCount;
+				this->segments[5][1] = 0*longCount + 6*shortCount - 1;
 
-		//k
-		this->segments[10][0] = 0*longCount + 6*shortCount;
-		this->segments[10][1] = 1*longCount + 6*shortCount - 1;
+				//i
+				this->segments[8][0] = 0*longCount + 6*shortCount;
+				this->segments[8][1] = 1*longCount + 6*shortCount - 1;
 
-		//l
-		this->segments[11][0] = 1*longCount + 6*shortCount;
-		this->segments[11][1] = 2*longCount + 6*shortCount - 1;
+				//n
+				this->segments[13][0] = 1*longCount + 6*shortCount;
+				this->segments[13][1] = 2*longCount + 6*shortCount - 1;
 
-		//m
-		this->segments[12][0] = 2*longCount + 6*shortCount;
-		this->segments[12][1] = 2*longCount + 7*shortCount - 1;
+				//m
+				this->segments[12][0] = 2*longCount + 6*shortCount;
+				this->segments[12][1] = 2*longCount + 7*shortCount - 1;
 
-		//n
-		this->segments[13][0] = 2*longCount + 7*shortCount;
-		this->segments[13][1] = 3*longCount + 7*shortCount - 1;
+				//l
+				this->segments[11][0] = 2*longCount + 7*shortCount;
+				this->segments[11][1] = 3*longCount + 7*shortCount - 1;
 
-		//g
-		this->segments[6][0] = 3*longCount + 7*shortCount;
-		this->segments[6][1] = 3*longCount + 7*shortCount + (shortCount - newGap)/2;
+				//h
+				this->segments[7][0] = 3*longCount + 7*shortCount;
+				this->segments[7][1] = 3*longCount + 7*shortCount + (shortCount - newGap)/2;
 
-		//h
-		this->segments[7][0] = 3*longCount + 7*shortCount + (shortCount - newGap)/2 + newGap;
-		this->segments[7][1] = 3*longCount + 8*shortCount - 1;
+				//g
+				this->segments[6][0] = 3*longCount + 7*shortCount + (shortCount - newGap)/2 + newGap;
+				this->segments[6][1] = 3*longCount + 8*shortCount - 1;
 
-		//j
-		this->segments[9][0] = 3*longCount + 8*shortCount;
-		this->segments[9][1] = 3*longCount + 9*shortCount - 1;
+				//j
+				this->segments[9][0] = 3*longCount + 8*shortCount;
+				this->segments[9][1] = 3*longCount + 9*shortCount - 1;
 
-		//i
-		this->segments[8][0] = 3*longCount + 9*shortCount;
-		this->segments[8][1] = 4*longCount + 9*shortCount - 1;
-	} else if (!leftRight && !dataTop)	//sitting hours
-	{
-		//d
-		this->segments[3][0] = 0*longCount + 0*shortCount;
-		this->segments[3][1] = 0*longCount + 1*shortCount - 1;
+				//k
+				this->segments[10][0] = 3*longCount + 9*shortCount;
+				this->segments[10][1] = 4*longCount + 9*shortCount - 1;
+			} else if (leftRight && !dataTop)	//sitting minutes
+			{
+				//d
+				this->segments[3][0] = 0*longCount + 0*shortCount;
+				this->segments[3][1] = 0*longCount + 1*shortCount - 1;
 
-		//e
-		this->segments[4][0] = 0*longCount + 1*shortCount;
-		this->segments[4][1] = 0*longCount + 2*shortCount - 1;
+				//c
+				this->segments[2][0] = 0*longCount + 1*shortCount;
+				this->segments[2][1] = 0*longCount + 2*shortCount - 1;
 
-		//f
-		this->segments[5][0] = 0*longCount + 2*shortCount;
-		this->segments[5][1] = 0*longCount + 3*shortCount - 1;
+				//b
+				this->segments[1][0] = 0*longCount + 2*shortCount;
+				this->segments[1][1] = 0*longCount + 3*shortCount - 1;
 
-		//a
-		this->segments[0][0] = 0*longCount + 3*shortCount;
-		this->segments[0][1] = 0*longCount + 4*shortCount - 1;
+				//a
+				this->segments[0][0] = 0*longCount + 3*shortCount;
+				this->segments[0][1] = 0*longCount + 4*shortCount - 1;
 
-		//b
-		this->segments[1][0] = 0*longCount + 4*shortCount;
-		this->segments[1][1] = 0*longCount + 5*shortCount - 1;
+				//f
+				this->segments[5][0] = 0*longCount + 4*shortCount;
+				this->segments[5][1] = 0*longCount + 5*shortCount - 1;
 
-		//c
-		this->segments[2][0] = 0*longCount + 5*shortCount;
-		this->segments[2][1] = 0*longCount + 6*shortCount - 1;
+				//e
+				this->segments[4][0] = 0*longCount + 5*shortCount;
+				this->segments[4][1] = 0*longCount + 6*shortCount - 1;
 
-		//l
-		this->segments[11][0] = 0*longCount + 6*shortCount;
-		this->segments[11][1] = 1*longCount + 6*shortCount - 1;
+				//n
+				this->segments[13][0] = 0*longCount + 6*shortCount;
+				this->segments[13][1] = 1*longCount + 6*shortCount - 1;
 
-		//k
-		this->segments[10][0] = 1*longCount + 6*shortCount;
-		this->segments[10][1] = 2*longCount + 6*shortCount - 1;
+				//i
+				this->segments[8][0] = 1*longCount + 6*shortCount;
+				this->segments[8][1] = 2*longCount + 6*shortCount - 1;
 
-		//j
-		this->segments[9][0] = 2*longCount + 6*shortCount;
-		this->segments[9][1] = 2*longCount + 7*shortCount - 1;
+				//j
+				this->segments[9][0] = 2*longCount + 6*shortCount;
+				this->segments[9][1] = 2*longCount + 7*shortCount - 1;
 
-		//i
-		this->segments[8][0] = 2*longCount + 7*shortCount;
-		this->segments[8][1] = 3*longCount + 7*shortCount - 1;
+				//k
+				this->segments[10][0] = 2*longCount + 7*shortCount;
+				this->segments[10][1] = 3*longCount + 7*shortCount - 1;
 
-		//g
-		this->segments[6][0] = 3*longCount + 7*shortCount;
-		this->segments[6][1] = 3*longCount + 7*shortCount + (shortCount - newGap)/2;
+				//h
+				this->segments[7][0] = 3*longCount + 7*shortCount;
+				this->segments[7][1] = 3*longCount + 7*shortCount + (shortCount - newGap)/2;
 
-		//h
-		this->segments[7][0] = 3*longCount + 7*shortCount + (shortCount - newGap)/2 + newGap;
-		this->segments[7][1] = 3*longCount + 8*shortCount - 1;
+				//g
+				this->segments[6][0] = 3*longCount + 7*shortCount + (shortCount - newGap)/2 + newGap;
+				this->segments[6][1] = 3*longCount + 8*shortCount - 1;
 
-		//m
-		this->segments[12][0] = 3*longCount + 8*shortCount;
-		this->segments[12][1] = 3*longCount + 9*shortCount - 1;
+				//m
+				this->segments[12][0] = 3*longCount + 8*shortCount;
+				this->segments[12][1] = 3*longCount + 9*shortCount - 1;
 
-		//n
-		this->segments[13][0] = 3*longCount + 9*shortCount;
-		this->segments[13][1] = 4*longCount + 9*shortCount - 1;
+				//l
+				this->segments[11][0] = 3*longCount + 9*shortCount;
+				this->segments[11][1] = 4*longCount + 9*shortCount - 1;
+			} else if (!leftRight && dataTop)	//hanging hours
+			{
+				//a
+				this->segments[0][0] = 0*longCount + 0*shortCount;
+				this->segments[0][1] = 0*longCount + 1*shortCount - 1;
+
+				//f
+				this->segments[5][0] = 0*longCount + 1*shortCount;
+				this->segments[5][1] = 0*longCount + 2*shortCount - 1;
+
+				//e
+				this->segments[4][0] = 0*longCount + 2*shortCount;
+				this->segments[4][1] = 0*longCount + 3*shortCount - 1;
+
+				//d
+				this->segments[3][0] = 0*longCount + 3*shortCount;
+				this->segments[3][1] = 0*longCount + 4*shortCount - 1;
+
+				//c
+				this->segments[2][0] = 0*longCount + 4*shortCount;
+				this->segments[2][1] = 0*longCount + 5*shortCount - 1;
+
+				//b
+				this->segments[1][0] = 0*longCount + 5*shortCount;
+				this->segments[1][1] = 0*longCount + 6*shortCount - 1;
+
+				//k
+				this->segments[10][0] = 0*longCount + 6*shortCount;
+				this->segments[10][1] = 1*longCount + 6*shortCount - 1;
+
+				//l
+				this->segments[11][0] = 1*longCount + 6*shortCount;
+				this->segments[11][1] = 2*longCount + 6*shortCount - 1;
+
+				//m
+				this->segments[12][0] = 2*longCount + 6*shortCount;
+				this->segments[12][1] = 2*longCount + 7*shortCount - 1;
+
+				//n
+				this->segments[13][0] = 2*longCount + 7*shortCount;
+				this->segments[13][1] = 3*longCount + 7*shortCount - 1;
+
+				//g
+				this->segments[6][0] = 3*longCount + 7*shortCount;
+				this->segments[6][1] = 3*longCount + 7*shortCount + (shortCount - newGap)/2;
+
+				//h
+				this->segments[7][0] = 3*longCount + 7*shortCount + (shortCount - newGap)/2 + newGap;
+				this->segments[7][1] = 3*longCount + 8*shortCount - 1;
+
+				//j
+				this->segments[9][0] = 3*longCount + 8*shortCount;
+				this->segments[9][1] = 3*longCount + 9*shortCount - 1;
+
+				//i
+				this->segments[8][0] = 3*longCount + 9*shortCount;
+				this->segments[8][1] = 4*longCount + 9*shortCount - 1;
+			} else if (!leftRight && !dataTop)	//sitting hours
+			{
+				//d
+				this->segments[3][0] = 0*longCount + 0*shortCount;
+				this->segments[3][1] = 0*longCount + 1*shortCount - 1;
+
+				//e
+				this->segments[4][0] = 0*longCount + 1*shortCount;
+				this->segments[4][1] = 0*longCount + 2*shortCount - 1;
+
+				//f
+				this->segments[5][0] = 0*longCount + 2*shortCount;
+				this->segments[5][1] = 0*longCount + 3*shortCount - 1;
+
+				//a
+				this->segments[0][0] = 0*longCount + 3*shortCount;
+				this->segments[0][1] = 0*longCount + 4*shortCount - 1;
+
+				//b
+				this->segments[1][0] = 0*longCount + 4*shortCount;
+				this->segments[1][1] = 0*longCount + 5*shortCount - 1;
+
+				//c
+				this->segments[2][0] = 0*longCount + 5*shortCount;
+				this->segments[2][1] = 0*longCount + 6*shortCount - 1;
+
+				//l
+				this->segments[11][0] = 0*longCount + 6*shortCount;
+				this->segments[11][1] = 1*longCount + 6*shortCount - 1;
+
+				//k
+				this->segments[10][0] = 1*longCount + 6*shortCount;
+				this->segments[10][1] = 2*longCount + 6*shortCount - 1;
+
+				//j
+				this->segments[9][0] = 2*longCount + 6*shortCount;
+				this->segments[9][1] = 2*longCount + 7*shortCount - 1;
+
+				//i
+				this->segments[8][0] = 2*longCount + 7*shortCount;
+				this->segments[8][1] = 3*longCount + 7*shortCount - 1;
+
+				//g
+				this->segments[6][0] = 3*longCount + 7*shortCount;
+				this->segments[6][1] = 3*longCount + 7*shortCount + (shortCount - newGap)/2;
+
+				//h
+				this->segments[7][0] = 3*longCount + 7*shortCount + (shortCount - newGap)/2 + newGap;
+				this->segments[7][1] = 3*longCount + 8*shortCount - 1;
+
+				//m
+				this->segments[12][0] = 3*longCount + 8*shortCount;
+				this->segments[12][1] = 3*longCount + 9*shortCount - 1;
+
+				//n
+				this->segments[13][0] = 3*longCount + 9*shortCount;
+				this->segments[13][1] = 4*longCount + 9*shortCount - 1;
+			}
+		break;
+		default:
+			return -1;
+		break;
 	}
 	
 	
-	
-	
-
     return this->totalLEDs;
 }
 
