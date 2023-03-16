@@ -14,6 +14,7 @@ private:
 public:
     fourteen_segment_digit();
     int begin(CRGB newPtr[], uint8_t longCount, uint8_t shortCount, uint8_t newGap, bool leftRight, bool dataTop);
+    int begin(CRGB newPtr[], uint8_t segmentIndices[13][2]);
     void setSegment(uint8_t segmentNum, uint8_t r, uint8_t g, uint8_t b);
     void setSegments(uint16_t segmentBits, uint8_t r, uint8_t g, uint8_t b);
     void setChar(char newChar, uint8_t r, uint8_t g, uint8_t b);

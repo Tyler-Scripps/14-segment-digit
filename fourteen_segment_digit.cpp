@@ -368,12 +368,70 @@ int fourteen_segment_digit::begin(CRGB newPtr[], uint8_t longCount, uint8_t shor
 		this->segments[13][0] = 3*longCount + 9*shortCount;
 		this->segments[13][1] = 4*longCount + 9*shortCount - 1;
 	}
-	
-	
-	
-	
 
     return this->totalLEDs;
+}
+
+int fourteen_segment_digit::begin(CRGB newPtr[], uint8_t segmentIndices[14][2]) {
+	this->stripPtr = newPtr;
+
+	//a
+	this->segments[0][0] = segmentIndices[0][0];
+	this->segments[0][1] = segmentIndices[0][1];
+
+	//b
+	this->segments[1][0] = segmentIndices[1][0];
+	this->segments[1][1] = segmentIndices[1][1];
+
+	//c
+	this->segments[2][0] = segmentIndices[2][0];
+	this->segments[2][1] = segmentIndices[2][1];
+
+	//d
+	this->segments[3][0] = segmentIndices[3][0];
+	this->segments[3][1] = segmentIndices[3][1];
+
+	//e
+	this->segments[4][0] = segmentIndices[4][0];
+	this->segments[4][1] = segmentIndices[4][1];
+
+	//f
+	this->segments[5][0] = segmentIndices[5][0];
+	this->segments[5][1] = segmentIndices[5][1];
+
+	//g
+	this->segments[6][0] = segmentIndices[6][0];
+	this->segments[6][1] = segmentIndices[6][1];
+
+	//h
+	this->segments[7][0] = segmentIndices[7][0];
+	this->segments[7][1] = segmentIndices[7][1];
+
+	//i
+	this->segments[8][0] = segmentIndices[8][0];
+	this->segments[8][1] = segmentIndices[8][1];
+
+	//j
+	this->segments[9][0] = segmentIndices[9][0];
+	this->segments[9][1] = segmentIndices[9][1];
+
+	//k
+	this->segments[10][0] = segmentIndices[10][0];
+	this->segments[10][1] = segmentIndices[10][1];
+
+	//l
+	this->segments[11][0] = segmentIndices[11][0];
+	this->segments[11][1] = segmentIndices[11][1];
+
+	//m
+	this->segments[12][0] = segmentIndices[12][0];
+	this->segments[12][1] = segmentIndices[12][1];
+
+	//n
+	this->segments[13][0] = segmentIndices[13][0];
+	this->segments[13][1] = segmentIndices[13][1];
+
+	return 1;
 }
 
 void fourteen_segment_digit::setSegment(uint8_t segmentNum, uint8_t r, uint8_t g, uint8_t b) {
