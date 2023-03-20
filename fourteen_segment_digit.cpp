@@ -495,8 +495,19 @@ int fourteen_segment_digit::begin(CRGB newPtr[], uint8_t longCount, uint8_t shor
     return this->totalLEDs;
 }
 
-int fourteen_segment_digit::begin(CRGB newPtr[], uint8_t segmentIndices[14][2]) {
+int fourteen_segment_digit::begin(CRGB newPtr[], const uint8_t segmentIndices[14][2]) {
 	this->stripPtr = newPtr;
+	uint8_t maxValue = 0;
+
+	for(uint8_t i = 0; i < 14; i++) {
+		if(segmentIndices[i][0] > maxValue) {
+			maxValue = segmentIndices[i][0];
+		}
+		if(segmentIndices[i][1] > maxValue) {
+			maxValue = segmentIndices[i][1];
+		}
+	}
+	this->totalLEDs = maxValue + 1;
 
 	//a
 	this->segments[0][0] = segmentIndices[0][0];
